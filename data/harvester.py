@@ -7,6 +7,13 @@ import sys
 from collections import OrderedDict
 import itertools
 
+
+# how to update next year:
+# 1) go to http://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-csv
+# 2) in web broser click the year you want to add
+# 3) click XML data type
+# 4) copy URL and paste as parameter for function getFiles
+
 def getFiles(start,end,address,pattern,dirname):
 
     if(not os.path.exists(dirname)):
@@ -26,6 +33,7 @@ def getFiles(start,end,address,pattern,dirname):
 
         for link in page.xpath("//a"):
             filename = link.get("href").split("/")[-1]
+            print("filename:"+str(filename))
             if(p.findall(filename) and suffix.findall(filename)):
                 counter+=1
                 file = dirname+"/"+filename
@@ -55,6 +63,9 @@ def getAll(pattern,dirname):
     getFiles(2009,2012,"http://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-za-rok-%s",pattern,dirname)
     getFiles(2013,2013,"http://www.minv.sk/?statistika_kriminality_v_slovenskej_republike_za_rok_%s",pattern,dirname)
     getFiles(2014,2014,"http://www.minv.sk/?kriminalita_%s_xml",pattern,dirname)
+    getFiles(2015,2015,"http://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-za-rok-%s",pattern,dirname)
+    getFiles(2016,2016,"http://www.minv.sk/?statistika-kriminality-v-slovenskej-republike-za-rok-%s",pattern,dirname)
+    getFiles(2017,2017,"http://www.minv.sk/?Statistika_kriminality_v_SR_za_rok_%s",pattern,dirname)
 
 def is_number(s):
     if s is None:
